@@ -2,7 +2,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-2022'
+  vmImage: 'Default'
 
 variables:
   solution: '**/*.sln'
