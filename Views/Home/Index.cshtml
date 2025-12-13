@@ -3,6 +3,32 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome Putti</h1>
-    <img src="~/images/putti.png" alt="Putti" />
+    <h1 class="display-4">Welcome Manju</h1>
+
+    
+    <div class="mt-4">
+        <h3>Worcester, MA Temperature</h3>
+        <div id="temperature-display" class="alert alert-info">
+            <p>Loading temperature...</p>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        fetch('/Home/GetWorcesterTemperature')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('temperature-display').innerHTML = `
+                    <h4>${data.temperature}${data.temperatureUnit}</h4>
+                    <p><strong>${data.city}, ${data.state}, ${data.country}</strong></p>
+                    <p>Condition: ${data.condition}</p>
+                    <p><small>Updated: ${data.timestamp}</small></p>
+                `;
+            })
+            .catch(error => {
+                document.getElementById('temperature-display').innerHTML = 
+                    '<p class="text-danger">Error loading temperature data</p>';
+            });
+    </script>
+}
